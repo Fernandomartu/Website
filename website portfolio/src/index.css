@@ -1,0 +1,10 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto+Mono:100");
+
+@tailwind base;
+@layer base {
+  html {
+    @apply text-header-50 sm:text-default-50;
+  }
+}
+@tailwind components;
+@tailwind utilities;
