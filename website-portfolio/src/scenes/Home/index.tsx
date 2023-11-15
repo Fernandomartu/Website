@@ -5,6 +5,7 @@ import SocialMediaApp from "@/assets/Socialmediaapp.png";
 import visitorTracker from "@/assets/visitor-tracker.png";
 import gymApp from "@/assets/gymapp.png";
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 type Props = {
   setSelectedPage: (value: SelectedPage) => void;
@@ -17,9 +18,6 @@ const Home = ({ setSelectedPage }: Props) => {
   const [gitProjectTwoHovered, setGitProjectTwoHovered] =
     useState<boolean>(false);
 
-  const [isProjectOneHovered, setIsProjectOneHovered] =
-    useState<boolean>(false);
-
   const isAboveMediumScreens = useMediaQuery("(min-width: 1060px)");
 
   const handleProjectClick = (url: string) => {
@@ -28,7 +26,10 @@ const Home = ({ setSelectedPage }: Props) => {
 
   return (
     <section id="home" className="bg-primary-100 md:px-10">
-      <div className="lg:flex justify-between py-40">
+      <motion.div
+        onViewportEnter={() => setSelectedPage(SelectedPage.Contact)}
+        className="lg:flex justify-between py-40"
+      >
         <div className="lg:basis-2/5 mb-10 px-10">
           <HText>Fernando Marturet</HText>
           <p className="text-neon-50 text-xl mt-2">
@@ -244,7 +245,7 @@ const Home = ({ setSelectedPage }: Props) => {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 };

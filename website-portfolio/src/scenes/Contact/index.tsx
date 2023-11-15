@@ -2,6 +2,7 @@ import { SelectedPage } from "@/shared/types";
 import { useForm } from "react-hook-form";
 import HText from "@/shared/HText";
 import consultingImage from "@/assets/consulting.png";
+import { motion } from "framer-motion";
 
 type Props = {
   setSelectedPage: (value: SelectedPage) => void;
@@ -25,7 +26,10 @@ const Contact = ({ setSelectedPage }: Props) => {
 
   return (
     <section id="contact" className="pt-20 pb-32 bg-primary-100">
-      <div className="flex flex-col md:flex-row justify-center items-center gap-20 md:py-[100px]">
+      <motion.div
+        onViewportEnter={() => setSelectedPage(SelectedPage.Contact)}
+        className="flex flex-col md:flex-row justify-center items-center gap-20 md:py-[100px]"
+      >
         {/* LEFT SIDE */}
         <div className="md:basis-1/4 md:min-w-[400px] flex flex-col gap-10">
           <HText>Let's chat.</HText>
@@ -94,7 +98,7 @@ const Contact = ({ setSelectedPage }: Props) => {
             </button>
           </form>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 };

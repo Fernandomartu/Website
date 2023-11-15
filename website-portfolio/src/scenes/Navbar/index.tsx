@@ -2,16 +2,14 @@ import { Link } from "./Link";
 import { SelectedPage } from "@/shared/types";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
-import HText from "@/shared/HText";
 import { useState } from "react";
 
 type Props = {
-  isTopOfPage: boolean;
   selectedPage: SelectedPage;
   setSelectedPage: (value: SelectedPage) => void;
 };
 
-const Navbar = ({ isTopOfPage, selectedPage, setSelectedPage }: Props) => {
+const Navbar = ({ selectedPage, setSelectedPage }: Props) => {
   const isAboveSmallScreens = useMediaQuery("(min-width: 768px)");
   const [isMenuToggled, setIsMenuToggled] = useState<boolean>(false);
   const flexVertical = "flex flex-col items-center";

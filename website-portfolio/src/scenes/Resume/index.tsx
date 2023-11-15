@@ -1,6 +1,8 @@
 import HText from "@/shared/HText";
 import { SelectedPage } from "@/shared/types";
 import codeTypingImage from "@/assets/codeTypingImage.png";
+import { motion } from "framer-motion";
+
 type Props = {
   setSelectedPage: (value: SelectedPage) => void;
 };
@@ -11,7 +13,10 @@ const Resume = ({ setSelectedPage }: Props) => {
       id="resume"
       className="flex flex-col bg-primary-100 md:px-20 px-10 gap-10 md:gap-0"
     >
-      <div className="flex md:flex-row flex-col justify-center items-center md:gap-20 md:py-[100px]">
+      <motion.div
+        onViewportEnter={() => setSelectedPage(SelectedPage.Contact)}
+        className="flex md:flex-row flex-col justify-center items-center md:gap-20 md:py-[100px]"
+      >
         {/*LOGO*/}
         <div className="min-w-[400px] max-w-[400px] md:basis-1/4">
           <img src={codeTypingImage} />
@@ -35,7 +40,7 @@ const Resume = ({ setSelectedPage }: Props) => {
             </button>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/*WORK EXPERIENCE */}
 
