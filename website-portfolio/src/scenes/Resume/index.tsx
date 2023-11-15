@@ -9,7 +9,7 @@ type Props = {
 
 const Resume = ({ setSelectedPage }: Props) => {
   return (
-    <section id="resume">
+    <section id="resume" className="mt-20">
       <motion.div
         onViewportEnter={() => setSelectedPage(SelectedPage.Resume)}
         className="flex flex-col bg-primary-100 md:px-20 px-10 gap-10 md:gap-0"

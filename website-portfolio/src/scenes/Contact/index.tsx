@@ -25,7 +25,7 @@ const Contact = ({ setSelectedPage }: Props) => {
   };
 
   return (
-    <section id="contact" className="pt-20 pb-32 bg-primary-100 mt-[100px]">
+    <section id="contact" className="md:pt-20 pb-32 bg-primary-100 mt-[100px]">
       <motion.div
         onViewportEnter={() => setSelectedPage(SelectedPage.Contact)}
         className="flex flex-col md:flex-row justify-center items-center gap-20 md:py-[100px]"
