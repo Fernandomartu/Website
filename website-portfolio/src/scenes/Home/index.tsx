@@ -32,7 +32,7 @@ const Home = ({ setSelectedPage }: Props) => {
       >
         <div className="lg:basis-2/5 mb-10 px-10">
           <HText>Fernando Marturet</HText>
-          <p className="text-neon-50 text-xl mt-2">
+          <p className="text-neon-50 sm:text-xl mt-2">
             Hey there! Welcome to my portfolio. I am a full stack web developer.
             My projects and work experience demonstrate proficiency in front and
             backend technologies including React, Express, MongoDB, PSQL,
@@ -40,7 +40,9 @@ const Home = ({ setSelectedPage }: Props) => {
           </p>
         </div>
         <div className="basis-3/5 flex flex-col">
-          <h3 className="text-3xl mb-10 md:px-10 px-5 font-bold">Projects</h3>
+          <h3 className="sm:text-3xl text-xl mb-10 md:px-10 px-5 font-bold">
+            Projects
+          </h3>
           <div className="flex flex-col sm:px-5 px-0 md:gap-40 gap-20">
             <div
               onClick={
