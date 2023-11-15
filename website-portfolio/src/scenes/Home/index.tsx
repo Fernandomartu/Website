@@ -56,7 +56,7 @@ const Home = ({ setSelectedPage }: Props) => {
               }
               className="md:flex relative hover:cursor-pointer md:hover:cursor-default hover:border-neon-50 md:hover:border-0 hover:border-2 transition-border"
             >
-              <div className="md:basis-2/3 min-w-[500px] max-h-[350px] relative md:left-5 overflow-hidden md:bg-transparent">
+              <div className="md:basis-2/3 min-w-[500px] max-h-[400px] relative md:left-5 overflow-hidden md:bg-transparent">
                 <a
                   href="https://mern-social-media-frontend-15rx.onrender.com/" // Replace with your desired external URL
                   target="_blank" // Opens the link in a new tab

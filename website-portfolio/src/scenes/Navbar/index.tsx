@@ -35,7 +35,7 @@ const Navbar = ({ selectedPage, setSelectedPage }: Props) => {
           />
         </div>
       ) : (
-        <div className="fixed flex w-full bg-primary-50 py-8 text-xl justify-between px-10 z-[200]">
+        <div className="fixed flex w-full bg-primary-50 py-8 text-xl justify-between px-10 z-[200] items-center">
           <h3 className="font-bold text-neon-50">{`Marturet.tech`}</h3>
           <button
             className="rounded-full bg-secondary-500 p-2"
