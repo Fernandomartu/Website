@@ -1,5 +1,4 @@
 import { SelectedPage } from "@/shared/types";
-import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import HText from "@/shared/HText";
 import consultingImage from "@/assets/consulting.png";
