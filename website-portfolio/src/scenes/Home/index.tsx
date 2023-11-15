@@ -27,7 +27,7 @@ const Home = ({ setSelectedPage }: Props) => {
   return (
     <section id="home" className="bg-primary-100 md:px-10">
       <motion.div
-        onViewportEnter={() => setSelectedPage(SelectedPage.Contact)}
+        onViewportEnter={() => setSelectedPage(SelectedPage.Home)}
         className="lg:flex justify-between py-40"
       >
         <div className="lg:basis-2/5 mb-10 px-10">

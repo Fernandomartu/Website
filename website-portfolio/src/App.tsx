@@ -21,7 +21,7 @@ function App() {
   }, []);
 
   return (
-    <div className="app">
+    <div className="app bg-primary-100">
       <Navbar selectedPage={selectedPage} setSelectedPage={setSelectedPage} />
 
       <Home setSelectedPage={setSelectedPage} />
