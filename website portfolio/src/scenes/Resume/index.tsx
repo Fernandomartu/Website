@@ -9,7 +9,7 @@ const Resume = ({ setSelectedPage }: Props) => {
   return (
     <section
       id="resume"
-      className="flex flex-col h-[1500px] bg-primary-100 md:px-20 px-10 gap-10 md:gap-0"
+      className="flex flex-col bg-primary-100 md:px-20 px-10 gap-10 md:gap-0"
     >
       <div className="flex md:flex-row flex-col justify-center items-center md:gap-20 md:py-[100px]">
         {/*LOGO*/}
@@ -20,18 +20,17 @@ const Resume = ({ setSelectedPage }: Props) => {
         {/*HEADER*/}
         <div className="basis-1/3 md:min-w-[500px] flex flex-col justify-center gap-5">
           <HText>Work Experience</HText>
-          <p className="text-xl font-bold">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. In pretium
-            fringilla quam, eget auctor tellus maximus sit amet. Quisque ut
-            molestie ipsum, eu finibus ipsum. Nunc dolor ligula, aliquam nec
-            lacus sit amet, efficitur fermentum ante. Etiam condimentum semper
-            augue, ac facilisis elit luctus id.
+          <p className="md:text-xl font-bold">
+            Here is a brief overview of my work experience. Though I was
+            initially employed by CanvasPrints.com as a Bubble.io developer I
+            have since participated in a number of projects that have taught me
+            a lot about web development and programming in general.
           </p>
-          <div className="flex gap-10">
-            <button className="text-xl border-2 p-5 rounded-lg basis-1/3 font-bold">
+          <div className="flex md:gap-10 gap-5">
+            <button className="md:text-xl min-w-[150px] md:min-w-[200px] border-2 p-5 rounded-lg basis-1/3 font-bold  hover:bg-neon-50 hover:bg-opacity-30 transition-all duration-300 ease-in-out">
               Download CV
             </button>
-            <button className="text-xl border-2 p-5 rounded-lg basis-1/3 font-bold">
+            <button className="md:text-xl min-w-[150px] md:min-w-[200px] border-2 p-5 rounded-lg basis-1/3 font-bold  hover:bg-neon-50 hover:bg-opacity-30 transition-all duration-300 ease-in-out">
               Contact
             </button>
           </div>
@@ -39,25 +38,45 @@ const Resume = ({ setSelectedPage }: Props) => {
       </div>
 
       {/*WORK EXPERIENCE */}
-      <div className="flex md:flex-row flex-col justify-center items-start md:gap-10 gap-5">
+
+      <div className="flex md:flex-row flex-col justify-center items-start md:gap-10 gap-5 md:mb-20">
         <div>
           <h3 className="text-3xl text-neon-50">2021 - Present</h3>
         </div>
 
         <div className="basis-2/3 flex flex-col gap-5">
-          <h4 className="text-3xl font-bold">
+          <h4 className="text-lg md:text-3xl font-bold">
             Junior Web Developer @ CanvasPrints.com
           </h4>
-          <p className="text-xl font-bold">
+          <p className="md:text-xl font-bold">
             • Collaborated with designers and other developers to ensure
             integration of front-end and back-end functionality.
           </p>
-          <p className="text-xl font-bold">
+          <p className="md:text-xl font-bold">
             • Worked with a variety of technologies including but not limited to
             React, MongoDB, Postgres, Express, Python, Bubble IO.
           </p>
-          <p className="text-xl font-bold">
+          <p className="md:text-xl font-bold">
             • Developed and maintained Bubble.io applications.
+          </p>
+        </div>
+      </div>
+      <div className="flex md:flex-row flex-col justify-center items-start md:gap-10 gap-5">
+        <div>
+          <h3 className="text-3xl text-neon-50">2020 - 2021</h3>
+        </div>
+
+        <div className="basis-2/3 flex flex-col gap-5">
+          <h4 className="text-lg md:text-3xl font-bold">
+            Social Media Customer/Sales Rep @ OceanX
+          </h4>
+          <p className="md:text-xl font-bold">
+            • Provided customer service for multiple brands, including
+            troubleshooting and resolving customer complaints/issues with
+            products and troubleshooting client web applications.
+          </p>
+          <p className="md:text-xl font-bold">
+            • Met sales goals and provided support to sales team.
           </p>
         </div>
       </div>

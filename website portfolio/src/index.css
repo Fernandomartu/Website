@@ -3,7 +3,7 @@
 @tailwind base;
 @layer base {
   html {
-    @apply text-header-50 sm:text-default-50;
+    @apply text-header-50 md:text-default-50;
   }
 }
 @tailwind components;
