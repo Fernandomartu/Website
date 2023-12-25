@@ -2,6 +2,7 @@ import HText from "@/shared/HText";
 import { SelectedPage } from "@/shared/types";
 import codeTypingImage from "@/assets/codeTypingImage.png";
 import { motion } from "framer-motion";
+import resumePDF from "@/assets/Fernando Marturet Resume.pdf";
 
 type Props = {
   setSelectedPage: (value: SelectedPage) => void;
@@ -30,9 +31,13 @@ const Resume = ({ setSelectedPage }: Props) => {
               me a lot about web development and programming in general.
             </p>
             <div className="flex md:gap-10 gap-5">
-              <button className="md:text-xl min-w-[150px] md:min-w-[200px] border-2 p-5 rounded-lg basis-1/3 font-bold  hover:bg-neon-50 hover:bg-opacity-30 transition-all duration-300 ease-in-out">
+              <a
+                href={resumePDF} // Replace with the actual path to your PDF file
+                className="md:text-xl min-w-[150px] md:min-w-[200px] border-2 p-5 rounded-lg basis-1/3 font-bold hover:bg-neon-50 hover:bg-opacity-30 transition-all duration-300 ease-in-out text-center"
+                download // This attribute suggests that the link is used for downloading the resource
+              >
                 Download CV
-              </button>
+              </a>
             </div>
           </div>
         </div>

@@ -89,7 +89,7 @@ const Home = ({ setSelectedPage }: Props) => {
                 <a
                   className="z-[30]"
                   id="git-button-two"
-                  href="https://github.com/Fernandomartu/GPTeach"
+                  href="https://github.com/Fernandomartu/GPteach-clone"
                   target="_blank"
                   onMouseOver={() => setGitProjectTwoHovered(true)}
                   onMouseLeave={() => setGitProjectTwoHovered(false)}
