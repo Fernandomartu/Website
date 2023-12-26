@@ -77,7 +77,7 @@ const Home = ({ setSelectedPage }: Props) => {
                     <li>React</li>
                     <li>Redux</li>
                     <li>Express</li>
-                    <li>MongoDB</li>
+                    <li>Postgres</li>
                   </ul>
                   <ul className="flex sm:text-xl text-neon-50 gap-5 z-[30] font-bold wrap">
                     <li>ThreeJS</li>
