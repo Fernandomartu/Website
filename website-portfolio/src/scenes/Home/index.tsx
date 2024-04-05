@@ -1,9 +1,5 @@
-import HText from "@/shared/HText";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import { SelectedPage } from "@/shared/types";
-import SocialMediaApp from "@/assets/Socialmediaapp.png";
-import visitorTracker from "@/assets/visitor-tracker.png";
-import gymApp from "@/assets/gymapp.png";
 import gpteach from "@/assets/GPTeachProjectDemo.mp4";
 import evogym from "@/assets/evogym.mp4";
 import sociopedia from "@/assets/sociopedia.mp4";
@@ -11,7 +7,6 @@ import sersha from "@/assets/sersha.mp4";
 import epicprints from "@/assets/epicprint.mp4";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { ImCancelCircle } from "react-icons/im";
 
 type Props = {
   setSelectedPage: (value: SelectedPage) => void;
@@ -46,10 +41,6 @@ const Home = ({ setSelectedPage }: Props) => {
     useState<boolean>(false);
 
   const isAboveMediumScreens = useMediaQuery("(min-width: 1060px)");
-
-  const handleProjectClick = (url: string) => {
-    window.open(url, "_blank");
-  };
 
   const [selectedView, setSelectedView] = useState<string>("Fullstack");
   const [hoveredProjects, setHoveredProjects] = useState<number[]>([]);
@@ -125,19 +116,6 @@ const Home = ({ setSelectedPage }: Props) => {
     },
   ];
 
-  const handleProjectHover = (projectId: number) => {
-    setHoveredProjects((prevHoveredProjects) => [
-      ...prevHoveredProjects,
-      projectId,
-    ]);
-  };
-
-  const handleProjectUnhover = (projectId: number) => {
-    setHoveredProjects((prevHoveredProjects) =>
-      prevHoveredProjects.filter((id) => id !== projectId)
-    );
-  };
-
   const handleWatchDemoClick = (videoSrc: string) => {
     setSelectedVideoSrc(videoSrc);
     setShowPopup(true);
@@ -152,9 +130,6 @@ const Home = ({ setSelectedPage }: Props) => {
   const handlePopupMouseLeave = () => {
     setPopupHovered(false);
   };
-
-  const topRowProjects = fullstackProjects.slice(0, 2);
-  const bottomRowProjects = fullstackProjects.slice(-2);
 
   useEffect(() => {
     console.log("hoveredProjects state changed:", hoveredProjects);
