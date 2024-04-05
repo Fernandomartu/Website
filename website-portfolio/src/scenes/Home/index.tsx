@@ -5,6 +5,7 @@ import evogym from "@/assets/evogym.mp4";
 import sociopedia from "@/assets/sociopedia.mp4";
 import sersha from "@/assets/sersha.mp4";
 import epicprints from "@/assets/epicprint.mp4";
+import { useState } from "react";
 import { motion } from "framer-motion";
 
 type Props = {
