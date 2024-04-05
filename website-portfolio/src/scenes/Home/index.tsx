@@ -37,13 +37,10 @@ const Home = ({ setSelectedPage }: Props) => {
   const [gitProjectOneHovered, setGitProjectOneHovered] =
     useState<boolean>(false);
 
-  const [gitProjectTwoHovered, setGitProjectTwoHovered] =
-    useState<boolean>(false);
-
   const isAboveMediumScreens = useMediaQuery("(min-width: 1060px)");
 
   const [selectedView, setSelectedView] = useState<string>("Fullstack");
-  const [hoveredProjects, setHoveredProjects] = useState<number[]>([]);
+
   const [hoveredProjectId, setHoveredProjectId] = useState<number | null>(null);
   const [showPopup, setShowPopup] = useState<boolean>(false);
   const [selectedVideoSrc, setSelectedVideoSrc] = useState<string>("");
@@ -130,10 +127,6 @@ const Home = ({ setSelectedPage }: Props) => {
   const handlePopupMouseLeave = () => {
     setPopupHovered(false);
   };
-
-  useEffect(() => {
-    console.log("hoveredProjects state changed:", hoveredProjects);
-  }, [hoveredProjects]);
 
   return (
     <section id="home" className="bg-primary-100 md:px-4">
