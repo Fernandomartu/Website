@@ -4,12 +4,38 @@ import { SelectedPage } from "@/shared/types";
 import SocialMediaApp from "@/assets/Socialmediaapp.png";
 import visitorTracker from "@/assets/visitor-tracker.png";
 import gymApp from "@/assets/gymapp.png";
-import gpteach from "@/assets/gpteach.png";
-import { useState } from "react";
+import gpteach from "@/assets/GPTeachProjectDemo.mp4";
+import evogym from "@/assets/evogym.mp4";
+import sociopedia from "@/assets/sociopedia.mp4";
+import sersha from "@/assets/sersha.mp4";
+import epicprints from "@/assets/epicprint.mp4";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { ImCancelCircle } from "react-icons/im";
 
 type Props = {
   setSelectedPage: (value: SelectedPage) => void;
+};
+
+type fullstackProject = {
+  id: number;
+  type: string;
+  name: string;
+  description: string;
+  technologies: Array<string>;
+  videoSrc: string;
+  githubLink: string;
+  url: string;
+};
+
+type bubbleProject = {
+  id: number;
+  type: string;
+  name: string;
+  description: string;
+  technologies: Array<string>;
+  videoSrc: string;
+  url: string;
 };
 
 const Home = ({ setSelectedPage }: Props) => {
@@ -25,307 +51,493 @@ const Home = ({ setSelectedPage }: Props) => {
     window.open(url, "_blank");
   };
 
+  const [selectedView, setSelectedView] = useState<string>("Fullstack");
+  const [hoveredProjects, setHoveredProjects] = useState<number[]>([]);
+  const [hoveredProjectId, setHoveredProjectId] = useState<number | null>(null);
+  const [showPopup, setShowPopup] = useState<boolean>(false);
+  const [selectedVideoSrc, setSelectedVideoSrc] = useState<string>("");
+  const [popupHovered, setPopupHovered] = useState<boolean>(false);
+
+  const fullstackProjects: fullstackProject[] = [
+    {
+      id: 1,
+      type: "Frontend Application",
+      name: "Evogym",
+      description:
+        "A simple frontend application built with typescript and react. Features motion library for animations and react hook forms for form validation.",
+      technologies: ["React", "Typescript", "Motion", "React-hook-form"],
+      videoSrc: evogym,
+      githubLink: "https://github.com/Fernandomartu/TS-sport-app",
+      url: "https://ts-sport-app.pages.dev/",
+    },
+    {
+      id: 2,
+      type: "PERN",
+      name: "GPTeach",
+      description:
+        "An AI powered tutor. Ask it about any topic and start learning. ChatGPT is integrated into a Threejs animated robot. The AI is also instructed and given access to a CanvasJS whiteboard to draw and display text. This project was built using the ChatGPT assistants API (in beta), which is why response times from the AI can be slow.",
+      technologies: [
+        "React",
+        "Redux",
+        "Express",
+        "Postgres",
+        "ThreeJS",
+        "ChatGPT",
+        "Typescript",
+      ],
+      videoSrc: gpteach,
+      githubLink: "https://github.com/Fernandomartu/GPteach-clone",
+      url: "https://gpteach-frontend.onrender.com/",
+    },
+    {
+      id: 3,
+      type: "MERN",
+      name: "Sociopedia",
+      description:
+        "A barebones social media application. Allows you to create an account, login, add friends, create posts and upload images.",
+      technologies: ["React", "Redux", "Express", "MongoDB"],
+      videoSrc: sociopedia,
+      githubLink: "https://github.com/Fernandomartu/MERN-portfolio-project",
+      url: "https://mern-social-media-frontend-15rx.onrender.com/",
+    },
+  ];
+
+  const bubbleProjects: bubbleProject[] = [
+    {
+      id: 1,
+      type: "Bubble.io",
+      name: "Sersha",
+      description:
+        "A social media education app for pre-teens. This app was built for a client using Bubble.io.",
+      technologies: ["Bubble.io"],
+      videoSrc: sersha,
+      url: "https://sersha-26410.bubbleapps.io/",
+    },
+    {
+      id: 2,
+      type: "Bubble.io",
+      name: "Epicprint.com",
+      description:
+        "A simple frontend website showcasing products and services offered by Epicprint.",
+      technologies: ["Bubble.io"],
+      videoSrc: epicprints,
+      url: "https://epicprint.com/",
+    },
+  ];
+
+  const handleProjectHover = (projectId: number) => {
+    setHoveredProjects((prevHoveredProjects) => [
+      ...prevHoveredProjects,
+      projectId,
+    ]);
+  };
+
+  const handleProjectUnhover = (projectId: number) => {
+    setHoveredProjects((prevHoveredProjects) =>
+      prevHoveredProjects.filter((id) => id !== projectId)
+    );
+  };
+
+  const handleWatchDemoClick = (videoSrc: string) => {
+    setSelectedVideoSrc(videoSrc);
+    setShowPopup(true);
+  };
+
+  // Function to handle mouse enter event on the popup
+  const handlePopupMouseEnter = () => {
+    setPopupHovered(true);
+  };
+
+  // Function to handle mouse leave event on the popup
+  const handlePopupMouseLeave = () => {
+    setPopupHovered(false);
+  };
+
+  const topRowProjects = fullstackProjects.slice(0, 2);
+  const bottomRowProjects = fullstackProjects.slice(-2);
+
+  useEffect(() => {
+    console.log("hoveredProjects state changed:", hoveredProjects);
+  }, [hoveredProjects]);
+
   return (
-    <section id="home" className="bg-primary-100 md:px-10">
+    <section id="home" className="bg-primary-100 md:px-4">
       <motion.div
         onViewportEnter={() => setSelectedPage(SelectedPage.Home)}
-        className="lg:flex justify-between pt-40"
+        className="flex-col pt-40"
       >
-        <div className="lg:basis-2/5 mb-10 px-10">
-          <HText>Fernando Marturet</HText>
-          <p className="text-neon-50 sm:text-xl mt-2">
-            Hey there! Welcome to my portfolio. I am a full stack web developer.
-            My projects and work experience demonstrate proficiency in front and
-            backend technologies including React, Express, MongoDB, PSQL,
-            TypeScript, Python, and Bubble IO.
-          </p>
+        <div className="flex justify-evenly">
+          <h1
+            className={`sm:text-3xl text-xl mb-10 md:px-10 px-5 font-bold cursor-pointer ${
+              selectedView === "Fullstack" ? "text-neon-50" : "text-white"
+            }`}
+            onClick={() => setSelectedView("Fullstack")}
+          >
+            Fullstack
+          </h1>
+          <h1
+            className={`sm:text-3xl text-xl mb-10 md:px-10 px-5 font-bold cursor-pointer ${
+              selectedView === "Bubble" ? "text-neon-50" : "text-white"
+            }`}
+            onClick={() => setSelectedView("Bubble")}
+          >
+            Bubble.io
+          </h1>
         </div>
-        <div className="basis-3/5 flex flex-col">
-          <h3 className="sm:text-3xl text-xl mb-10 md:px-10 px-5 font-bold">
-            Projects
-          </h3>
-          <div className="flex flex-col sm:px-5 px-0 md:gap-40 gap-20">
-            <div
-              onClick={
-                isAboveMediumScreens
-                  ? undefined
-                  : () => {
-                      if (!gitProjectTwoHovered) {
-                        handleProjectClick(
-                          "https://gpteach-frontend.onrender.com"
-                        );
-                      }
-                    }
-              }
-              className="md:flex relative hover:cursor-pointer hover:border-neon-50 md:hover:border-0 hover:border-2 transition-border"
-            >
-              <div className="flex flex-col md:relative absolute top-0 gap-5 md:items-start items-start md:left-5 md:mt-0 mt-5 px-5">
-                <h3 className="sm:text-3xl text-lg z-[30] font-bold">
-                  MERN Stack
-                </h3>
-                <h4 className="sm:text-2xl text-lg z-[30] font-bold">
-                  GPTeach
-                </h4>
-                <p className="md:p-5 md:bg-paragraph-50 sm:text-lg z-[30] font-bold">
-                  An AI powered tutor. Ask it about any topic and start
-                  learning. ChatGPT is integrated into a threejs animated robot.
-                  The AI is also instructed and given access to a CanvasJS
-                  whiteboard to draw and display text.
-                </p>
-                <div className="flex flex-wrap">
-                  <ul className="flex sm:text-xl text-neon-50 gap-5 z-[30] font-bold wrap">
-                    <li>React</li>
-                    <li>Redux</li>
-                    <li>Express</li>
-                    <li>Postgres</li>
-                  </ul>
-                  <ul className="flex sm:text-xl text-neon-50 gap-5 z-[30] font-bold wrap">
-                    <li>ThreeJS</li>
-                    <li>ChatGPT</li>
-                    <li>Typescript</li>
-                  </ul>
-                </div>
-
-                <a
-                  className="z-[30]"
-                  id="git-button-two"
-                  href="https://github.com/Fernandomartu/GPteach-clone"
-                  target="_blank"
-                  onMouseOver={() => setGitProjectTwoHovered(true)}
-                  onMouseLeave={() => setGitProjectTwoHovered(false)}
+        {showPopup && (
+          <div
+            className="fixed top-20 left-0 w-full bg-black bg-opacity-50 flex justify-center items-center z-50"
+            onMouseEnter={handlePopupMouseEnter}
+            onMouseLeave={handlePopupMouseLeave}
+          >
+            <div className="relative flex w-full items-center justify-center">
+              {popupHovered && (
+                <button
+                  className="absolute flex items-center justify-center bottom-[100px] text-2xl font-bold text-black z-40 w-[200px] bg-white h-[70px] rounded-lg hover:bg-black hover:text-white"
+                  onClick={() => setShowPopup(false)}
                 >
-                  <svg
-                    className="w-8 h-8 z-[30]"
-                    width="98"
-                    height="96"
-                    viewBox="0 0 98 96"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"
-                      className={
-                        gitProjectTwoHovered ? "fill-neon-50" : "fill-white"
-                      }
-                    />
-                  </svg>
-                </a>
-              </div>
-              <div className="md:basis-2/3 min-w-[600px] min-h-[400px] max-h-[400px] relative md:right-5 overflow-hidden">
-                <a
-                  href="https://gpteach-frontend.onrender.com" // Replace with your desired external URL
-                  target="_blank" // Opens the link in a new tab
-                  rel="noopener noreferrer" // Recommended for security
-                >
-                  <img
-                    className="opacity-20 md:h-[300px] md:min-h-[300px] min-h-[400px] md:opacity-60 md:hover:opacity-100 transition-opacity cursor-pointer"
-                    src={gpteach}
-                  />
-                </a>
-              </div>
-            </div>
-            <div
-              onClick={
-                isAboveMediumScreens
-                  ? undefined
-                  : () => {
-                      if (!gitProjectOneHovered) {
-                        handleProjectClick(
-                          "https://mern-social-media-frontend-15rx.onrender.com/"
-                        );
-                      }
-                    }
-              }
-              className="md:flex relative hover:cursor-pointer md:hover:cursor-default hover:border-neon-50 md:hover:border-0 hover:border-2 transition-border"
-            >
-              <div className="md:basis-2/3 min-w-[500px] max-h-[400px] relative md:left-5 overflow-hidden md:bg-transparent">
-                <a
-                  href="https://mern-social-media-frontend-15rx.onrender.com/" // Replace with your desired external URL
-                  target="_blank" // Opens the link in a new tab
-                  rel="noopener noreferrer" // Recommended for security
-                >
-                  <img
-                    className="opacity-20 md:opacity-60 md:hover:opacity-100 transition-opacity cursor-pointer"
-                    src={SocialMediaApp}
-                  />
-                </a>
-              </div>
-              <div className="flex flex-col md:relative absolute top-0 sm:gap-5 gap-5 md:items-end items-start md:right-5 md:mt-0 mt-5 px-5">
-                <h3 className="sm:text-3xl text-lg z-[30] font-bold">
-                  MERN Stack
-                </h3>
-                <h4 className="sm:text-2xl text-lg z-[30] font-bold">
-                  Social Media App
-                </h4>
-                <p className="md:p-5 md:bg-paragraph-50 sm:text-lg z-[30] font-bold">
-                  A barebones social media app. Users have the ability to add
-                  friends and create posts. Features functional authentication
-                  and a light and dark theme.
-                </p>
-                <ul className="flex sm:text-xl gap-5 z-[30] font-bold text-neon-50">
-                  <li>React</li>
-                  <li>Redux</li>
-                  <li>Express</li>
-                  <li>MongoDB</li>
-                </ul>
-                <a
-                  id="git-button-one"
-                  href="https://github.com/Fernandomartu/MERN-portfolio-project"
-                  target="_blank"
-                  onMouseOver={() => setGitProjectOneHovered(true)}
-                  onMouseLeave={() => setGitProjectOneHovered(false)}
-                >
-                  <svg
-                    className="w-8 h-8"
-                    width="98"
-                    height="96"
-                    viewBox="0 0 98 96"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"
-                      className={
-                        gitProjectOneHovered ? "fill-neon-50" : "fill-white"
-                      }
-                    />
-                  </svg>
-                </a>
-              </div>
-            </div>
-            <div
-              onClick={
-                isAboveMediumScreens
-                  ? undefined
-                  : () => {
-                      if (!gitProjectTwoHovered) {
-                        handleProjectClick(
-                          "https://mern-vistitor-app-frontend.onrender.com/"
-                        );
-                      }
-                    }
-              }
-              className="md:flex relative hover:cursor-pointer hover:border-neon-50 md:hover:border-0 hover:border-2 transition-border"
-            >
-              <div className="flex flex-col md:relative absolute top-0 gap-5 md:items-start items-start md:left-5 md:mt-0 mt-5 px-5">
-                <h3 className="sm:text-3xl text-lg z-[30] font-bold">
-                  MERN Stack
-                </h3>
-                <h4 className="sm:text-2xl text-lg z-[30] font-bold">
-                  Visitor Tracker
-                </h4>
-                <p className="md:p-5 md:bg-paragraph-50 sm:text-lg z-[30] font-bold">
-                  A simple and effective app for tracking visitors to your
-                  enterprise. Features authentication and web sockets for client
-                  side data updates.
-                </p>
-                <ul className="flex sm:text-xl text-neon-50 gap-5 z-[30] font-bold">
-                  <li>React</li>
-                  <li>Redux</li>
-                  <li>Express</li>
-                  <li>MongoDB</li>
-                </ul>
-                <a
-                  className="z-[30]"
-                  id="git-button-two"
-                  href="https://github.com/Fernandomartu/MERN-visitor-app.git"
-                  target="_blank"
-                  onMouseOver={() => setGitProjectTwoHovered(true)}
-                  onMouseLeave={() => setGitProjectTwoHovered(false)}
-                >
-                  <svg
-                    className="w-8 h-8 z-[30]"
-                    width="98"
-                    height="96"
-                    viewBox="0 0 98 96"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"
-                      className={
-                        gitProjectTwoHovered ? "fill-neon-50" : "fill-white"
-                      }
-                    />
-                  </svg>
-                </a>
-              </div>
-              <div className="md:basis-2/3 min-w-[600px] min-h-[400px] max-h-[400px] relative md:right-5 overflow-hidden">
-                <a
-                  href="https://mern-vistitor-app-frontend.onrender.com" // Replace with your desired external URL
-                  target="_blank" // Opens the link in a new tab
-                  rel="noopener noreferrer" // Recommended for security
-                >
-                  <img
-                    className="opacity-20 md:h-[300px] md:min-h-[300px] min-h-[400px] md:opacity-60 md:hover:opacity-100 transition-opacity cursor-pointer"
-                    src={visitorTracker}
-                  />
-                </a>
-              </div>
-            </div>
-            <div
-              onClick={
-                isAboveMediumScreens
-                  ? undefined
-                  : () => {
-                      if (!gitProjectOneHovered) {
-                        handleProjectClick("https://ts-sport-app.pages.dev/");
-                      }
-                    }
-              }
-              className="md:flex relative hover:cursor-pointer md:hover:cursor-default hover:border-neon-50 md:hover:border-0 hover:border-2 transition-border"
-            >
-              <div className="md:basis-2/3 min-w-[500px] md:max-h-[400px] relative md:left-5 overflow-hidden md:bg-transparent">
-                <a
-                  href="https://ts-sport-app.pages.dev/" // Replace with your desired external URL
-                  target="_blank" // Opens the link in a new tab
-                  rel="noopener noreferrer" // Recommended for security
-                >
-                  <img
-                    className="opacity-20 min-h-[400px] sm:min-h-[300px] md:opacity-60 md:hover:opacity-100 transition-opacity cursor-pointer"
-                    src={gymApp}
-                  />
-                </a>
-              </div>
-              <div className="flex flex-col md:relative absolute top-0 sm:gap-5 gap-5 md:items-end items-start md:right-5 md:mt-0 mt-5 px-5">
-                <h3 className="sm:text-3xl text-lg z-[30] font-bold">
-                  TypeScript Frontend
-                </h3>
-                <h4 className="sm:text-2xl text-lg z-[30] font-bold">
-                  Gym App
-                </h4>
-                <p className="md:p-5 md:bg-paragraph-50 sm:text-lg z-[30] font-bold">
-                  A static site for a sample gym business. Employs multiple
-                  libraries including react hook forms and motion for
-                  animations.
-                </p>
-                <ul className="flex sm:text-xl gap-5 z-[30] font-bold text-neon-50">
-                  <li>React</li>
-                  <li>Typescript</li>
-                </ul>
-                <a
-                  id="git-button-three"
-                  href="https://github.com/Fernandomartu/TS-sport-app.git"
-                  target="_blank"
-                  onMouseOver={() => setGitProjectOneHovered(true)}
-                  onMouseLeave={() => setGitProjectOneHovered(false)}
-                >
-                  <svg
-                    className="w-8 h-8"
-                    width="98"
-                    height="96"
-                    viewBox="0 0 98 96"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"
-                      className={
-                        gitProjectOneHovered ? "fill-neon-50" : "fill-white"
-                      }
-                    />
-                  </svg>
-                </a>
-              </div>
+                  Close Demo
+                </button>
+              )}
+              <video controls autoPlay className="w-[80%]">
+                <source src={selectedVideoSrc} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
             </div>
           </div>
-        </div>
+        )}
+        {selectedView === "Bubble" && isAboveMediumScreens && (
+          <div className="lg:flex flex-nowrap gap-4 mt-20 w-full">
+            {bubbleProjects.map((project) => (
+              <div
+                key={project.id}
+                className="relative rounded-lg min-w-[400px] h-full"
+                onMouseEnter={() => setHoveredProjectId(project.id)}
+                onMouseLeave={() => setHoveredProjectId(null)}
+              >
+                <motion.div
+                  className="flex-col absolute ml-5 mt-5 space-y-4 z-[30] h-[100%] overflow-y-auto overflow-x-hidden w-[100%]"
+                  style={{
+                    opacity: hoveredProjectId === project.id ? 1 : 0,
+                  }}
+                  initial={{ opacity: 0 }}
+                  animate={{
+                    opacity: hoveredProjectId === project.id ? 1 : 0,
+                  }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <h1 className="text-white text-3xl md:text-5xl">
+                    {project.name}
+                  </h1>
+                  <h1 className="text-white text-3xl md:text-4xl">
+                    {project.type}
+                  </h1>
+                  <p className="text-white text-xl md:text-2xl leading-10 md:leading-10">
+                    {project.description}
+                  </p>
+                  <div className="flex flex-wrap gap-5">
+                    {project.technologies.map((tech, index) => (
+                      <span
+                        key={index}
+                        className="flex sm:text-xl text-neon-50 gap-2 font-bold wrap"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </motion.div>
+                <motion.div
+                  className="absolute bottom-0 w-full space-y-4 z-[30] overflow-y-auto overflow-x-hidden"
+                  style={{
+                    opacity: hoveredProjectId === project.id ? 1 : 0,
+                  }}
+                  initial={{ opacity: 0 }}
+                  animate={{
+                    opacity: hoveredProjectId === project.id ? 1 : 0,
+                  }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <button
+                    className="text-2xl text-neon-50 font-bold border-2 p-5 rounded-lg w-full hover:bg-neon-50 hover:text-black"
+                    onClick={() => handleWatchDemoClick(project.videoSrc)}
+                  >
+                    Watch Demo
+                  </button>
+                  <button
+                    className="text-2xl text-neon-50 font-bold border-2 p-5 rounded-lg w-full hover:bg-neon-50 hover:text-black"
+                    onClick={() => window.open(project.url, "_blank")}
+                  >
+                    Visit Site
+                  </button>
+                </motion.div>
+                {/*video*/}
+                <motion.video
+                  className="rounded-lg w-[100%] h-full"
+                  autoPlay
+                  muted
+                  style={{
+                    opacity: hoveredProjectId === project.id ? 0.5 : 1,
+                  }}
+                  initial={{ opacity: 1 }}
+                  animate={{
+                    opacity: hoveredProjectId === project.id ? 0.1 : 1,
+                  }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <source src={project.videoSrc} type="video/mp4" />
+                </motion.video>
+              </div>
+            ))}
+          </div>
+        )}
+        {selectedView === "Bubble" && !isAboveMediumScreens && (
+          <div className="lg:flex flex-nowrap gap-4">
+            {bubbleProjects.map((project) => (
+              <div
+                key={project.id}
+                className="w-full mb-5 rounded-lg min-w-[400px] h-full"
+              >
+                {/*video*/}
+                <video
+                  className="rounded-lg"
+                  width="100%"
+                  height="100%"
+                  autoPlay
+                  muted
+                >
+                  <source src={project.videoSrc} type="video/mp4" />
+                </video>
+                <div className="flex-col ml-5 mr-5 mt-5 space-y-4 z-[30] h-[85%] overflow-y-auto overflow-x-hidden">
+                  <h1 className="text-white text-3xl md:text-5xl">
+                    {project.name}
+                  </h1>
+                  <h1 className="text-white text-3xl md:text-4xl">
+                    {project.type}
+                  </h1>
+                  <p className="text-white text-xl md:text-2xl leading-10 md:leading-10">
+                    {project.description}
+                  </p>
+                  <div className="flex flex-wrap gap-5">
+                    {project.technologies.map((tech, index) => (
+                      <span
+                        key={index}
+                        className="flex sm:text-xl text-neon-50 gap-2 font-bold wrap"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+
+                  <button
+                    className="text-2xl text-neon-50 font-bold border-2 p-5 rounded-lg w-full hover:bg-neon-50 hover:text-black"
+                    onClick={() => handleWatchDemoClick(project.videoSrc)}
+                  >
+                    Watch Demo
+                  </button>
+                  <button
+                    className="text-2xl text-neon-50 font-bold border-2 p-5 rounded-lg w-full hover:bg-neon-50 hover:text-black"
+                    onClick={() => window.open(project.url, "_blank")}
+                  >
+                    Visit Site
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+        {selectedView === "Fullstack" && isAboveMediumScreens && (
+          <div className="lg:flex flex-nowrap gap-4 justify-center mt-20">
+            {fullstackProjects.map((project, index) => (
+              <div
+                key={project.id}
+                className={`flex w-full mb-4 rounded-lg relative justify-center items-center h-fit self-center ${
+                  index === 1 ? "lg:w-1/2" : "lg:w-1/3"
+                }`}
+                onMouseEnter={() => setHoveredProjectId(project.id)}
+                onMouseLeave={() => setHoveredProjectId(null)}
+              >
+                <motion.div
+                  className="flex-col absolute ml-5 space-y-4 z-[30] h-[75%] overflow-y-auto overflow-x-hidden w-[95%]"
+                  style={{
+                    opacity: hoveredProjectId === project.id ? 1 : 0,
+                  }}
+                  initial={{ opacity: 0 }}
+                  animate={{
+                    opacity: hoveredProjectId === project.id ? 1 : 0,
+                  }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <h1 className="text-white text-3xl md:text-5xl">
+                    {project.name}
+                  </h1>
+                  <h1 className="text-white text-3xl md:text-4xl">
+                    {project.type}
+                  </h1>
+                  <p className="text-white text-xl md:text-2xl leading-10 md:leading-10">
+                    {project.description}
+                  </p>
+                  <div className="flex flex-wrap gap-5">
+                    {project.technologies.map((tech, index) => (
+                      <span
+                        key={index}
+                        className="flex sm:text-xl text-neon-50 gap-2 font-bold wrap"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="w-0">
+                    <a
+                      className=""
+                      id="git-button-two"
+                      href={project.githubLink}
+                      target="_blank"
+                      onMouseOver={() => setGitProjectOneHovered(true)}
+                      onMouseLeave={() => setGitProjectOneHovered(false)}
+                    >
+                      <svg
+                        className="w-8 h-8 z-[30]"
+                        width="98"
+                        height="96"
+                        viewBox="0 0 98 96"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"
+                          className={
+                            gitProjectOneHovered ? "fill-neon-50" : "fill-white"
+                          }
+                        />
+                      </svg>
+                    </a>
+                  </div>
+                  <button
+                    className="text-2xl text-neon-50 font-bold border-2 p-5 rounded-lg w-full hover:bg-neon-50 hover:text-black"
+                    onClick={() => handleWatchDemoClick(project.videoSrc)}
+                  >
+                    Watch Demo
+                  </button>
+                  <button
+                    className="text-2xl text-neon-50 font-bold border-2 p-5 rounded-lg w-full hover:bg-neon-50 hover:text-black"
+                    onClick={() => window.open(project.url, "_blank")}
+                  >
+                    Visit Site
+                  </button>
+                </motion.div>
+                <motion.div
+                  className="absolute bottom-0 w-full space-y-4 z-[30] overflow-y-auto overflow-x-hidden"
+                  style={{
+                    opacity: hoveredProjectId === project.id ? 1 : 0,
+                  }}
+                  initial={{ opacity: 0 }}
+                  animate={{
+                    opacity: hoveredProjectId === project.id ? 1 : 0,
+                  }}
+                  transition={{ duration: 0.3 }}
+                ></motion.div>
+
+                {/*video*/}
+                <motion.video
+                  className="rounded-lg"
+                  width="100%"
+                  height="100%"
+                  autoPlay
+                  muted
+                  style={{
+                    opacity: hoveredProjectId === project.id ? 0.5 : 1,
+                  }}
+                  initial={{ opacity: 1 }}
+                  animate={{
+                    opacity: hoveredProjectId === project.id ? 0.1 : 1,
+                  }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <source src={project.videoSrc} type="video/mp4" />
+                </motion.video>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {selectedView === "Fullstack" && !isAboveMediumScreens && (
+          <div className="lg:flex flex-nowrap gap-4">
+            {fullstackProjects.map((project) => (
+              <div
+                key={project.id}
+                className="w-full mb-5 rounded-lg min-w-[400px] h-full"
+              >
+                {/*video*/}
+                <video
+                  className="rounded-lg"
+                  width="100%"
+                  height="100%"
+                  autoPlay
+                  muted
+                >
+                  <source src={project.videoSrc} type="video/mp4" />
+                </video>
+                <div className="flex-col ml-5 mr-5 mt-5 space-y-4 z-[30] h-[85%] overflow-y-auto overflow-x-hidden">
+                  <h1 className="text-white text-3xl md:text-5xl">
+                    {project.name}
+                  </h1>
+                  <h1 className="text-white text-3xl md:text-4xl">
+                    PERN Stack
+                  </h1>
+                  <p className="text-white text-xl md:text-2xl leading-10 md:leading-10">
+                    {project.description}
+                  </p>
+                  <div className="flex flex-wrap gap-5">
+                    {project.technologies.map((tech, index) => (
+                      <span
+                        key={index}
+                        className="flex sm:text-xl text-neon-50 gap-2 font-bold wrap"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                    <button
+                      className="text-2xl text-neon-50 font-bold border-2 p-5 rounded-lg w-full hover:bg-neon-50 hover:text-black"
+                      onClick={() => handleWatchDemoClick(project.videoSrc)}
+                    >
+                      Watch Demo
+                    </button>
+                    <button
+                      className="text-2xl text-neon-50 font-bold border-2 p-5 rounded-lg w-full hover:bg-neon-50 hover:text-black"
+                      onClick={() => window.open(project.url, "_blank")}
+                    >
+                      Visit Site
+                    </button>
+                  </div>
+                  <div className="w-0">
+                    <a
+                      className=""
+                      id="git-button-two"
+                      href="https://github.com/Fernandomartu/GPteach-clone"
+                      target="_blank"
+                      onMouseOver={() => setGitProjectOneHovered(true)}
+                      onMouseLeave={() => setGitProjectOneHovered(false)}
+                    >
+                      <svg
+                        className="w-8 h-8 z-[30]"
+                        width="98"
+                        height="96"
+                        viewBox="0 0 98 96"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"
+                          className={
+                            gitProjectOneHovered ? "fill-neon-50" : "fill-white"
+                          }
+                        />
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </motion.div>
     </section>
   );

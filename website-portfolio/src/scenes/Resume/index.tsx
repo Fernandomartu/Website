@@ -24,7 +24,7 @@ const Resume = ({ setSelectedPage }: Props) => {
           {/*HEADER*/}
           <div className="basis-1/3 md:min-w-[500px] flex flex-col justify-center gap-5">
             <HText>Work Experience</HText>
-            <p className="md:text-xl font-bold">
+            <p className="md:text-xl font-bold leading-10 md:leading-10">
               Here is a brief overview of my work experience. Though I was
               initially employed by CanvasPrints.com as a Bubble.io developer I
               have since participated in a number of projects that have taught
