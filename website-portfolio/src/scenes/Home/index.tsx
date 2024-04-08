@@ -1,9 +1,9 @@
 import useMediaQuery from "@/hooks/useMediaQuery";
 import { SelectedPage } from "@/shared/types";
-import gpteach from "@/assets/GPTeachProjectDemo.mp4";
-import evogym from "@/assets/evogym.mp4";
-import sociopedia from "@/assets/sociopedia.mp4";
-import sersha from "@/assets/sersha.mp4";
+import gpteach from "@/assets/gpteachdemoshort.mp4";
+import evogym from "@/assets/evogymshort.mp4";
+import sociopedia from "@/assets/sociopediashort.mp4";
+import sersha from "@/assets/sershashort.mp4";
 import epicprints from "@/assets/epicprint.mp4";
 import { useState } from "react";
 import { motion } from "framer-motion";
@@ -21,6 +21,7 @@ type fullstackProject = {
   videoSrc: string;
   githubLink: string;
   url: string;
+  youtubeLink: string;
 };
 
 type bubbleProject = {
@@ -31,6 +32,7 @@ type bubbleProject = {
   technologies: Array<string>;
   videoSrc: string;
   url: string;
+  youtubeLink: string;
 };
 
 const Home = ({ setSelectedPage }: Props) => {
@@ -57,6 +59,8 @@ const Home = ({ setSelectedPage }: Props) => {
       videoSrc: evogym,
       githubLink: "https://github.com/Fernandomartu/TS-sport-app",
       url: "https://ts-sport-app.pages.dev/",
+      youtubeLink:
+        "https://www.youtube.com/embed/T0f78nZ13us?si=B28geJ5GtoTbsssP",
     },
     {
       id: 2,
@@ -76,6 +80,8 @@ const Home = ({ setSelectedPage }: Props) => {
       videoSrc: gpteach,
       githubLink: "https://github.com/Fernandomartu/GPteach-clone",
       url: "https://gpteach-frontend.onrender.com/",
+      youtubeLink:
+        "https://www.youtube.com/embed/cemPoc7_AeE?si=oPAG0w-ZyT7r1L_r",
     },
     {
       id: 3,
@@ -87,6 +93,8 @@ const Home = ({ setSelectedPage }: Props) => {
       videoSrc: sociopedia,
       githubLink: "https://github.com/Fernandomartu/MERN-portfolio-project",
       url: "https://mern-social-media-frontend-15rx.onrender.com/",
+      youtubeLink:
+        "https://www.youtube.com/embed/3dxH175W-Mo?si=7NS91xdw9mOtOFjX",
     },
   ];
 
@@ -100,6 +108,8 @@ const Home = ({ setSelectedPage }: Props) => {
       technologies: ["Bubble.io"],
       videoSrc: sersha,
       url: "https://sersha-26410.bubbleapps.io/",
+      youtubeLink:
+        "https://www.youtube.com/embed/QwvTTEq5sJM?si=DCRUdgYm54crC34f",
     },
     {
       id: 2,
@@ -110,6 +120,8 @@ const Home = ({ setSelectedPage }: Props) => {
       technologies: ["Bubble.io"],
       videoSrc: epicprints,
       url: "https://epicprint.com/",
+      youtubeLink:
+        "https://www.youtube.com/embed/SndaetVydIY?si=OzG1qKjH2lP2Lly1",
     },
   ];
 
@@ -154,23 +166,25 @@ const Home = ({ setSelectedPage }: Props) => {
         </div>
         {showPopup && (
           <div
-            className="fixed top-20 left-0 w-full bg-black bg-opacity-50 flex justify-center items-center z-50"
+            className="fixed top-40 left-0 w-full bg-black bg-opacity-50 flex justify-center items-center z-50"
             onMouseEnter={handlePopupMouseEnter}
             onMouseLeave={handlePopupMouseLeave}
           >
             <div className="relative flex w-full items-center justify-center">
               {popupHovered && (
                 <button
-                  className="absolute flex items-center justify-center bottom-[100px] text-2xl font-bold text-black z-40 w-[200px] bg-white h-[70px] rounded-lg hover:bg-black hover:text-white"
+                  className="absolute flex items-center justify-center bottom-[100px] text-2xl font-bold text-white z-40 w-[200px] bg-black h-[80px] rounded-lg hover:bg-white hover:text-black"
                   onClick={() => setShowPopup(false)}
                 >
                   Close Demo
                 </button>
               )}
-              <video controls autoPlay className="w-[80%]">
-                <source src={selectedVideoSrc} type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
+              <iframe
+                src={selectedVideoSrc}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="w-[80%] h-[1000px]"
+              ></iframe>
             </div>
           </div>
         )}
@@ -227,7 +241,7 @@ const Home = ({ setSelectedPage }: Props) => {
                 >
                   <button
                     className="text-2xl text-neon-50 font-bold border-2 p-5 rounded-lg w-full hover:bg-neon-50 hover:text-black"
-                    onClick={() => handleWatchDemoClick(project.videoSrc)}
+                    onClick={() => handleWatchDemoClick(project.youtubeLink)}
                   >
                     Watch Demo
                   </button>
@@ -298,7 +312,7 @@ const Home = ({ setSelectedPage }: Props) => {
 
                   <button
                     className="text-2xl text-neon-50 font-bold border-2 p-5 rounded-lg w-full hover:bg-neon-50 hover:text-black"
-                    onClick={() => handleWatchDemoClick(project.videoSrc)}
+                    onClick={() => handleWatchDemoClick(project.youtubeLink)}
                   >
                     Watch Demo
                   </button>
@@ -381,7 +395,7 @@ const Home = ({ setSelectedPage }: Props) => {
                   </div>
                   <button
                     className="text-2xl text-neon-50 font-bold border-2 p-5 rounded-lg w-full hover:bg-neon-50 hover:text-black"
-                    onClick={() => handleWatchDemoClick(project.videoSrc)}
+                    onClick={() => handleWatchDemoClick(project.youtubeLink)}
                   >
                     Watch Demo
                   </button>
@@ -465,7 +479,7 @@ const Home = ({ setSelectedPage }: Props) => {
                     ))}
                     <button
                       className="text-2xl text-neon-50 font-bold border-2 p-5 rounded-lg w-full hover:bg-neon-50 hover:text-black"
-                      onClick={() => handleWatchDemoClick(project.videoSrc)}
+                      onClick={() => handleWatchDemoClick(project.youtubeLink)}
                     >
                       Watch Demo
                     </button>
