@@ -266,7 +266,7 @@ const Home = ({ setSelectedPage }: Props) => {
                 {/*video*/}
                 <motion.video
                   className="rounded-lg w-[100%] h-full"
-                  autoPlay
+                  playsInline
                   muted
                   style={{
                     opacity: hoveredProjectId === project.id ? 0.5 : 1,
@@ -296,6 +296,7 @@ const Home = ({ setSelectedPage }: Props) => {
                   width="100%"
                   height="100%"
                   autoPlay
+                  playsInline
                   muted
                 >
                   <source src={project.videoSrc} type="video/mp4" />
@@ -435,6 +436,7 @@ const Home = ({ setSelectedPage }: Props) => {
                   width="100%"
                   height="100%"
                   autoPlay
+                  playsInline
                   muted
                   style={{
                     opacity: hoveredProjectId === project.id ? 0.5 : 1,
@@ -465,6 +467,7 @@ const Home = ({ setSelectedPage }: Props) => {
                   width="100%"
                   height="100%"
                   autoPlay
+                  playsInline
                   muted
                 >
                   <source src={project.videoSrc} type="video/mp4" />
