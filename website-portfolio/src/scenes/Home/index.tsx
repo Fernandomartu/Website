@@ -166,11 +166,11 @@ const Home = ({ setSelectedPage }: Props) => {
         </div>
         {showPopup && (
           <div
-            className="fixed top-40 left-0 w-full bg-black bg-opacity-50 flex justify-center items-center z-50"
+            className="fixed top-0 h-[100vh] left-0 w-full bg-black bg-opacity-50 flex justify-center items-center z-50"
             onMouseEnter={handlePopupMouseEnter}
             onMouseLeave={handlePopupMouseLeave}
           >
-            <div className="relative flex w-full items-center justify-center">
+            <div className="relative flex w-full h-[80%] items-center justify-center">
               {popupHovered && (
                 <button
                   className="absolute flex items-center justify-center bottom-[100px] text-2xl font-bold text-white z-40 w-[200px] bg-black h-[80px] rounded-lg hover:bg-white hover:text-black"
@@ -179,12 +179,23 @@ const Home = ({ setSelectedPage }: Props) => {
                   Close Demo
                 </button>
               )}
-              <iframe
-                src={selectedVideoSrc}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                className="w-[80%] h-[1000px]"
-              ></iframe>
+              <div
+                className="video-container w-[80%]"
+                style={{ paddingTop: "100px" }}
+              >
+                <iframe
+                  src={selectedVideoSrc}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "100%",
+                    height: "100%",
+                  }}
+                ></iframe>
+              </div>
             </div>
           </div>
         )}
