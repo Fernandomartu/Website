@@ -35,10 +35,6 @@ type bubbleProject = {
   youtubeLink: string;
 };
 
-type VideoLoadingState = {
-  [key: number]: boolean;
-};
-
 const Home = ({ setSelectedPage }: Props) => {
   const [gitProjectOneHovered, setGitProjectOneHovered] =
     useState<boolean>(false);
@@ -51,8 +47,6 @@ const Home = ({ setSelectedPage }: Props) => {
   const [showPopup, setShowPopup] = useState<boolean>(false);
   const [selectedVideoSrc, setSelectedVideoSrc] = useState<string>("");
   const [popupHovered, setPopupHovered] = useState<boolean>(false);
-
-  const [videoLoading, setVideoLoading] = useState<VideoLoadingState>({});
 
   const fullstackProjects: fullstackProject[] = [
     {
@@ -271,21 +265,9 @@ const Home = ({ setSelectedPage }: Props) => {
                 </motion.div>
                 {/*video*/}
                 <motion.video
-                  className="rounded-lg"
-                  width="100%"
-                  height="100%"
-                  autoPlay
+                  className="rounded-lg w-[100%] h-full"
                   playsInline
                   muted
-                  onLoadedData={() =>
-                    setVideoLoading((prev) => ({
-                      ...prev,
-                      [project.id]: false,
-                    }))
-                  }
-                  onCanPlay={() =>
-                    setVideoLoading((prev) => ({ ...prev, [project.id]: true }))
-                  }
                   style={{
                     opacity: hoveredProjectId === project.id ? 0.5 : 1,
                   }}
@@ -296,12 +278,6 @@ const Home = ({ setSelectedPage }: Props) => {
                   transition={{ duration: 0.3 }}
                 >
                   <source src={project.videoSrc} type="video/mp4" />
-                  {videoLoading[project.id] && (
-                    <div className="absolute inset-0 flex justify-center items-center">
-                      <div className="loader">Loading...</div>{" "}
-                      {/* Style this loader as needed */}
-                    </div>
-                  )}
                 </motion.video>
               </div>
             ))}
