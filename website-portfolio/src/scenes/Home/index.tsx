@@ -7,6 +7,7 @@ import sersha from "@/assets/sershashort.mp4";
 import epicprints from "@/assets/epicprint.mp4";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { BallTriangle } from "react-loader-spinner";
 
 type Props = {
   setSelectedPage: (value: SelectedPage) => void;
@@ -125,6 +126,14 @@ const Home = ({ setSelectedPage }: Props) => {
     },
   ];
 
+  const [loading, setLoading] = useState(
+    Object.fromEntries(bubbleProjects.map((project) => [project.id, true]))
+  );
+
+  const handleVideoLoaded = (id: number) => {
+    setLoading((prev) => ({ ...prev, [id]: false }));
+  };
+
   const handleWatchDemoClick = (videoSrc: string) => {
     setSelectedVideoSrc(videoSrc);
     setShowPopup(true);
@@ -208,6 +217,25 @@ const Home = ({ setSelectedPage }: Props) => {
                 onMouseEnter={() => setHoveredProjectId(project.id)}
                 onMouseLeave={() => setHoveredProjectId(null)}
               >
+                {loading[project.id] && (
+                  <div className="absolute inset-0 flex justify-center items-center z-50">
+                    <BallTriangle /> {/* Spinner displayed while loading */}
+                  </div>
+                )}
+                <motion.video
+                  className="rounded-lg w-[100%] h-full"
+                  playsInline
+                  muted
+                  onCanPlayThrough={() => handleVideoLoaded(project.id)}
+                  style={{
+                    opacity: loading[project.id] ? 0 : 1, // Change opacity based on the loading state
+                  }}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: loading[project.id] ? 0 : 1 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <source src={project.videoSrc} type="video/mp4" />
+                </motion.video>
                 <motion.div
                   className="flex-col absolute ml-5 mt-5 space-y-4 z-[30] h-[100%] overflow-y-auto overflow-x-hidden w-[100%]"
                   style={{
@@ -219,25 +247,7 @@ const Home = ({ setSelectedPage }: Props) => {
                   }}
                   transition={{ duration: 0.3 }}
                 >
-                  <h1 className="text-white text-3xl md:text-5xl">
-                    {project.name}
-                  </h1>
-                  <h1 className="text-white text-3xl md:text-4xl">
-                    {project.type}
-                  </h1>
-                  <p className="text-white text-xl md:text-2xl leading-10 md:leading-10">
-                    {project.description}
-                  </p>
-                  <div className="flex flex-wrap gap-5">
-                    {project.technologies.map((tech, index) => (
-                      <span
-                        key={index}
-                        className="flex sm:text-xl text-neon-50 gap-2 font-bold wrap"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
+                  {/* Project details here */}
                 </motion.div>
                 <motion.div
                   className="absolute bottom-0 w-full space-y-4 z-[30] overflow-y-auto overflow-x-hidden"
@@ -250,35 +260,8 @@ const Home = ({ setSelectedPage }: Props) => {
                   }}
                   transition={{ duration: 0.3 }}
                 >
-                  <button
-                    className="text-2xl text-neon-50 font-bold border-2 p-5 rounded-lg w-full hover:bg-neon-50 hover:text-black"
-                    onClick={() => handleWatchDemoClick(project.youtubeLink)}
-                  >
-                    Watch Demo
-                  </button>
-                  <button
-                    className="text-2xl text-neon-50 font-bold border-2 p-5 rounded-lg w-full hover:bg-neon-50 hover:text-black"
-                    onClick={() => window.open(project.url, "_blank")}
-                  >
-                    Visit Site
-                  </button>
+                  {/* Action buttons here */}
                 </motion.div>
-                {/*video*/}
-                <motion.video
-                  className="rounded-lg w-[100%] h-full"
-                  playsInline
-                  muted
-                  style={{
-                    opacity: hoveredProjectId === project.id ? 0.5 : 1,
-                  }}
-                  initial={{ opacity: 1 }}
-                  animate={{
-                    opacity: hoveredProjectId === project.id ? 0.1 : 1,
-                  }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <source src={project.videoSrc} type="video/mp4" />
-                </motion.video>
               </div>
             ))}
           </div>
