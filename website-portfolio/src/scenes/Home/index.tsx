@@ -213,7 +213,7 @@ const Home = ({ setSelectedPage }: Props) => {
             {bubbleProjects.map((project) => (
               <div
                 key={project.id}
-                className="relative rounded-lg min-w-[400px] h-full"
+                className="relative rounded-lg w-full h-full overflow-hidden" // ensure overflow is hidden to maintain rounded corners
                 onMouseEnter={() => setHoveredProjectId(project.id)}
                 onMouseLeave={() => setHoveredProjectId(null)}
               >
@@ -223,21 +223,32 @@ const Home = ({ setSelectedPage }: Props) => {
                   </div>
                 )}
                 <motion.video
-                  className="rounded-lg w-[100%] h-full"
+                  className="relative rounded-lg w-full h-full"
                   playsInline
+                  autoPlay
                   muted
                   onCanPlayThrough={() => handleVideoLoaded(project.id)}
                   style={{
-                    opacity: loading[project.id] ? 0 : 1, // Change opacity based on the loading state
+                    opacity: loading[project.id]
+                      ? 0
+                      : hoveredProjectId === project.id
+                      ? 0.2
+                      : 1,
                   }}
                   initial={{ opacity: 0 }}
-                  animate={{ opacity: loading[project.id] ? 0 : 1 }}
+                  animate={{
+                    opacity: loading[project.id]
+                      ? 0
+                      : hoveredProjectId === project.id
+                      ? 0.2
+                      : 1,
+                  }}
                   transition={{ duration: 0.3 }}
                 >
                   <source src={project.videoSrc} type="video/mp4" />
                 </motion.video>
                 <motion.div
-                  className="flex-col absolute ml-5 mt-5 space-y-4 z-[30] h-[100%] overflow-y-auto overflow-x-hidden w-[100%]"
+                  className="absolute inset-0 flex-col ml-5 mt-5 space-y-4 z-[30] h-full overflow-y-auto overflow-x-hidden"
                   style={{
                     opacity: hoveredProjectId === project.id ? 1 : 0,
                   }}
@@ -247,10 +258,28 @@ const Home = ({ setSelectedPage }: Props) => {
                   }}
                   transition={{ duration: 0.3 }}
                 >
-                  {/* Project details here */}
+                  <h1 className="text-white text-3xl md:text-5xl">
+                    {project.name}
+                  </h1>
+                  <h1 className="text-white text-3xl md:text-4xl">
+                    {project.type}
+                  </h1>
+                  <p className="text-white text-xl md:text-2xl leading-10 md:leading-10">
+                    {project.description}
+                  </p>
+                  <div className="flex flex-wrap gap-5">
+                    {project.technologies.map((tech, index) => (
+                      <span
+                        key={index}
+                        className="flex sm:text-xl text-neon-50 gap-2 font-bold wrap"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
                 </motion.div>
                 <motion.div
-                  className="absolute bottom-0 w-full space-y-4 z-[30] overflow-y-auto overflow-x-hidden"
+                  className="absolute w-full bottom-0 space-y-4 z-[30] overflow-y-auto overflow-x-hidden"
                   style={{
                     opacity: hoveredProjectId === project.id ? 1 : 0,
                   }}
@@ -260,7 +289,18 @@ const Home = ({ setSelectedPage }: Props) => {
                   }}
                   transition={{ duration: 0.3 }}
                 >
-                  {/* Action buttons here */}
+                  <button
+                    className="text-2xl text-neon-50 font-bold border-2 p-5 rounded-lg w-full hover:bg-neon-50 hover:text-black"
+                    onClick={() => handleWatchDemoClick(project.youtubeLink)}
+                  >
+                    Watch Demo
+                  </button>
+                  <button
+                    className="text-2xl text-neon-50 font-bold border-2 p-5 rounded-lg w-full hover:bg-neon-50 hover:text-black"
+                    onClick={() => window.open(project.url, "_blank")}
+                  >
+                    Visit Site
+                  </button>
                 </motion.div>
               </div>
             ))}
