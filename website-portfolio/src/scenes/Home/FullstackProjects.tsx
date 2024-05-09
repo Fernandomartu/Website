@@ -53,7 +53,7 @@ const FullstackProjects: React.FC<Props> = ({
           >
             {loading[project.id] && (
               <div className="flex justify-center items-center">
-                <BallTriangle />
+                <BallTriangle color="#5DEECE" />
               </div>
             )}
             <video
@@ -147,7 +147,7 @@ const FullstackProjects: React.FC<Props> = ({
         >
           {loading[project.id] && (
             <div className="absolute inset-0 flex justify-center items-center z-50">
-              <BallTriangle />
+              <BallTriangle color="#5DEECE" />
             </div>
           )}
           <video
