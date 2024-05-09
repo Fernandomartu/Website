@@ -25,10 +25,13 @@ const Resume = ({ setSelectedPage }: Props) => {
           <div className="basis-1/3 md:min-w-[500px] flex flex-col justify-center gap-5">
             <HText>Work Experience</HText>
             <p className="md:text-xl font-bold leading-10 md:leading-10">
-              Here is a brief overview of my work experience. Though I was
-              initially employed by CanvasPrints.com as a Bubble.io developer I
-              have since participated in a number of projects that have taught
-              me a lot about web development and programming in general.
+              Below is a brief overview of my work experience as a Full Stack
+              Software Engineer, where I have engaged with multiple front-end
+              and back-end technologies to design and develop comprehensive web
+              systems. I have played a key role in automating processes,
+              integrating APIs, and optimizing databases across various
+              platforms, contributing significantly to the streamlined
+              functionality and scalability of business applications.
             </p>
             <div className="flex md:gap-10 gap-5">
               <a
@@ -51,7 +54,7 @@ const Resume = ({ setSelectedPage }: Props) => {
 
           <div className="basis-2/3 flex flex-col gap-5">
             <h4 className="text-lg md:text-3xl font-bold">
-              Junior Web Developer @ CanvasPrints.com
+              Full Stack Software Engineer @ CanvasPrints.com
             </h4>
             <p className="md:text-xl font-bold">
               • Collaborated with designers and other developers to ensure
@@ -60,6 +63,29 @@ const Resume = ({ setSelectedPage }: Props) => {
             <p className="md:text-xl font-bold">
               • Worked with a variety of technologies including but not limited
               to React, MongoDB, Postgres, Express, Python, Bubble IO.
+            </p>
+            <p className="md:text-xl font-bold">
+              • Led the development and maintenance of diverse web applications,
+              utilizing a technology stack encompassing HTML, CSS, TypeScript,
+              NodeJS, Python and Git.
+            </p>
+            <p className="md:text-xl font-bold">
+              • Contributed significantly to the growth of Canvasprints.com by
+              actively participating in the development of the company's
+              Management Information System (MIS) that tracks employee
+              efficiency and monitors products/orders throughout the production
+              process.
+            </p>
+            <p className="md:text-xl font-bold">
+              • Integrated with APIs and hardware to decrease manual labor in
+              key steps of production and fulfillment.
+            </p>
+            <p className="md:text-xl font-bold">
+              • Developed Python scripts to automate key company processes and
+              streamline operational workflows.
+            </p>
+            <p className="md:text-xl font-bold">
+              • Worked with databases such as MongoDB, PostgresSQL, and mySQL.
             </p>
             <p className="md:text-xl font-bold">
               • Developed and maintained Bubble.io applications.
@@ -82,6 +108,21 @@ const Resume = ({ setSelectedPage }: Props) => {
             </p>
             <p className="md:text-xl font-bold">
               • Met sales goals and provided support to sales team.
+            </p>
+            <p className="md:text-xl font-bold">
+              • Actively engaged with customers through various social media
+              platforms to enhance brand presence and build positive
+              relationships.
+            </p>
+            <p className="md:text-xl font-bold">
+              • Monitored and responded to customer inquiries, comments, and
+              feedback on social media, contributing to a more dynamic and
+              customer-centric online presence.
+            </p>
+            <p className="md:text-xl font-bold">
+              • Demonstrated in-depth knowledge of multiple product lines,
+              enabling the provision of accurate and detailed information to
+              customers.
             </p>
           </div>
         </div>
