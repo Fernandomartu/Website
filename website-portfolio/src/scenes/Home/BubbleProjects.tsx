@@ -19,7 +19,7 @@ const BubbleProjects: React.FC<Props> = ({
   );
 
   const handleVideoLoaded = (id: number) => {
-    setLoading((prev) => ({ ...prev, [id]: false })); // Set false to mark loading as complete
+    setLoading((prev) => ({ ...prev, [id]: true })); // Set false to mark loading as complete
   };
 
   const isAboveMediumScreens = useMediaQuery("(min-width: 1450px)");
@@ -33,8 +33,9 @@ const BubbleProjects: React.FC<Props> = ({
             className="mb-4 bg-gray-800 text-white rounded-lg"
           >
             {loading[project.id] && (
-              <div className="flex justify-center items-center">
+              <div className="flex flex-col justify-center items-center text-xl text-neon-50 p-10 gap-10">
                 <BallTriangle color="#5DEECE" />
+                <h1>Project Loading...</h1>
               </div>
             )}
             <video

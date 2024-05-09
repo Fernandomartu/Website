@@ -52,8 +52,9 @@ const FullstackProjects: React.FC<Props> = ({
             className="mb-4 bg-gray-800 text-white rounded-lg"
           >
             {loading[project.id] && (
-              <div className="flex justify-center items-center">
+              <div className="flex flex-col justify-center items-center text-xl text-neon-50 p-10 gap-10">
                 <BallTriangle color="#5DEECE" />
+                <h1>Project Loading...</h1>
               </div>
             )}
             <video
@@ -144,14 +145,15 @@ const FullstackProjects: React.FC<Props> = ({
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.3 }}
+          style={{ height: loading[project.id] ? "400px" : "auto" }}
         >
           {loading[project.id] && (
-            <div className="absolute inset-0 flex justify-center items-center z-50">
+            <div className="absolute inset-0 flex justify-center items-center z-50 ">
               <BallTriangle color="#5DEECE" />
             </div>
           )}
           <video
-            className="rounded-lg"
+            className="relative rounded-lg w-full h-full"
             width="100%"
             height="100%"
             autoPlay
