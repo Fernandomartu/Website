@@ -26,12 +26,10 @@ const Resume = ({ setSelectedPage }: Props) => {
             <HText>Work Experience</HText>
             <p className="md:text-xl font-bold leading-10 md:leading-10">
               Below is a brief overview of my work experience as a Full Stack
-              Software Engineer, where I have engaged with multiple front-end
-              and back-end technologies to design and develop comprehensive web
-              systems. I have played a key role in automating processes,
-              integrating APIs, and optimizing databases across various
-              platforms, contributing significantly to the streamlined
-              functionality and scalability of business applications.
+              Software Engineer.I have engaged with multiple front-end and
+              back-end technologies to design and develop comprehensive web
+              systems and played a key role in automating processes, integrating
+              APIs, and optimizing databases across various platforms.
             </p>
             <div className="flex md:gap-10 gap-5">
               <a
@@ -94,7 +92,7 @@ const Resume = ({ setSelectedPage }: Props) => {
         </div>
         <div className="flex md:flex-row flex-col justify-center items-start md:gap-10 gap-5">
           <div>
-            <h3 className="text-3xl text-neon-50">2020 - 2021</h3>
+            <h3 className="text-3xl text-neon-50">2018 - 2020</h3>
           </div>
 
           <div className="basis-2/3 flex flex-col gap-5">
