@@ -19,7 +19,7 @@ const BubbleProjects: React.FC<Props> = ({
   );
 
   const handleVideoLoaded = (id: number) => {
-    setLoading((prev) => ({ ...prev, [id]: true })); // Set false to mark loading as complete
+    setLoading((prev) => ({ ...prev, [id]: false })); // Set false to mark loading as complete
   };
 
   const isAboveMediumScreens = useMediaQuery("(min-width: 1450px)");
