@@ -26,7 +26,7 @@ const Resume = ({ setSelectedPage }: Props) => {
             <HText>Work Experience</HText>
             <p className="md:text-xl font-bold leading-10 md:leading-10">
               Below is a brief overview of my work experience as a Full Stack
-              Software Engineer.I have engaged with multiple front-end and
+              Software Engineer. I have engaged with multiple front-end and
               back-end technologies to design and develop comprehensive web
               systems and played a key role in automating processes, integrating
               APIs, and optimizing databases across various platforms.
